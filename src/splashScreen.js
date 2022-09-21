@@ -1,17 +1,13 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   View,
   StyleSheet,
-  AppState,
 } from 'react-native';
 
 import AsyncStorage from '@react-native-community/async-storage';
-// import ExpireStorage from './services/auth';
-
 
 const SplashScreen = ({ navigation }) => {
-  //State for ActivityIndicator animation
 
   const [animating, setAnimating] = useState(true);
 
@@ -24,9 +20,8 @@ const SplashScreen = ({ navigation }) => {
         )
       },
       );
-    }, 3000);
+    }, 1000);
   }, []);
-
 
   return (
     <View style={styles.container}>

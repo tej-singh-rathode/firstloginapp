@@ -1,29 +1,19 @@
-import { View, Text, TextInput, FlatList, StatusBar, TouchableOpacity, AppState } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react';
-import { getMovieList } from '../services/movieList';
+import { View, Text, TextInput, FlatList, StatusBar, TouchableOpacity } from 'react-native'
+import React, { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from 'react-query';
-import RenderRow from './renderRow';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import _BackgroundTimer from 'react-native-background-timer';
+import AsyncStorage from '@react-native-community/async-storage';
+
+import { getMovieList } from '../services/movieList';
+import RenderRow from './renderRow';
 import styles from './styles';
 
-const Dashboard = () => {
+const Dashboard = (props) => {
+  const { navigation } = props;
   const queryClient = useQueryClient();
   const [movieData, setMovieData] = useState([])
   const [search, setSearch] = useState('');
-
-  const appState = useRef(AppState.currentState);
-  useEffect(() => {
-    const subscription = AppState.addEventListener("change", nextAppState => {
-       console.log(appState.current,'current state')
-      
-    });
-
-    return () => {
-      subscription.remove();
-    };
-  });
 
   const { refetch } = useQuery('movieList', () => getMovieList(), {
     onSuccess: (res) => {
@@ -65,16 +55,23 @@ const Dashboard = () => {
     );
   };
 
+  const backBtn = () => {
+    AsyncStorage.removeItem('user_id')
+    navigation.replace('login')
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <StatusBar
         backgroundColor="#030302"
       />
       <View style={styles.viewIcon}>
+        <TouchableOpacity onPress={backBtn}>
         <Ionicons
           name="arrow-back"
           style={styles.arrowIcon}
         />
+        </TouchableOpacity>
       </View>
       <View style={styles.mainView}>
         <View style={styles.searchView}>

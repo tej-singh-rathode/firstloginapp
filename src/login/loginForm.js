@@ -4,7 +4,6 @@ import { Formik } from 'formik'
 import AsyncStorage from '@react-native-community/async-storage';
 import styles from './styles'
 import * as yup from 'yup'
-// import ExpireStorage from '../services/auth';
 
 const loginValidationSchema = yup.object().shape({
   email: yup
@@ -22,8 +21,8 @@ const LoginForm = (props) => {
 
   const handleSubmitForm = (values) => {
     if (values.email === "test@test.com" && values.password === "12345678") {
-      // const aData = { email: "test@test.com", password: "12345678" }
-      AsyncStorage.setItem('user_id', "test@test.com");
+      const aData = { email: "test@test.com", password: "12345678" }
+      AsyncStorage.setItem('user_id', JSON.stringify(aData));
       navigation.replace('dashboard')
     } else {
       let pos = ToastAndroid.CENTER;

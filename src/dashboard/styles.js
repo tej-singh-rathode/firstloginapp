@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     color: '#ccc8c8',
     paddingTop: 15
   },
-
 });
 
 export default styles;

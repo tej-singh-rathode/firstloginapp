@@ -1,5 +1,6 @@
 import { View, Text, Button, Image } from 'react-native'
 import React from 'react'
+
 import LoginForm from './loginForm'
 import { fackbookImg, googleImg, twitterImg } from '../assets/images'
 import styles from './styles'
